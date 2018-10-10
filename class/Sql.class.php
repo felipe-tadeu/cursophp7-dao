@@ -27,17 +27,17 @@ class Sql extends PDO {
     /**
      * Seta todos os parâmetros do array
      */
-    private function setParams($statment, $parameters = array()) {
+    private function setParams($statement, $parameters = array()) {
         foreach ($parameters as $key => $value) {
-            $this->setParam($statment, $key, $value);
+            $this->setParam($statement, $key, $value);
         }
     }
 
     /**
      * Seta parâmetro
      */
-    private function setParam($statment, $key, $value) {
-        $statment->bindParams($key, $value);
+    private function setParam($statement, $key, $value) {
+        $statement->bindParam($key, $value);
     }
 
     /**
