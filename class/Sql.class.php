@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Classe Sql
+ * ======================
+ * ===== CLASSE SQL =====
+ * ======================
  */
 class Sql extends PDO {
 

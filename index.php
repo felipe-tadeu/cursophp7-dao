@@ -24,8 +24,15 @@ require_once("config.php");
 //echo json_encode(Usuario::buscarUsuario("jo"));
 
 //Teste: Buscar usuário autenticado
-$usuario = new Usuario();
-$usuario->buscarAutenticado("jose", "123456");
-echo $usuario;
+//$usuario = new Usuario();
+//$usuario->buscarAutenticado("jose", "123456");
+//echo $usuario;
+
+//Teste: Insert novo usuario
+$aluno = new Usuario("aluno", "alun0");
+
+$aluno->inserir();
+
+echo $aluno;
 
 ?>

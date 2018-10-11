@@ -15,6 +15,15 @@ class Usuario {
     private $dessenha;
     private $dtcadastro;
 
+
+    /**
+     * Construtor
+     */
+    public function __construct($login = "", $pass = "") {
+        $this->setDeslogin($login);
+        $this->setDessenha($pass);
+    }
+    
     /**
      * Get the value of idusuario
      */ 
@@ -107,14 +116,7 @@ class Usuario {
         ));
 
         if (count($results)) {
-
-            $row = $results[0];
-
-            $this->setIdusuario($row['idusuario']);
-            $this->setDeslogin($row['deslogin']);
-            $this->setDessenha($row['dessenha']);
-            $this->setDtcadastro(new DateTime($row['dtcadastro']));
-
+            $this->setarDados($results[0]);
         }
 
     }
@@ -156,16 +158,37 @@ class Usuario {
         ));
 
         if (count($results)) {
-
-            $row = $results[0];
-
-            $this->setIdusuario($row['idusuario']);
-            $this->setDeslogin($row['deslogin']);
-            $this->setDessenha($row['dessenha']);
-            $this->setDtcadastro(new DateTime($row['dtcadastro']));
-
+            $this->setarDados($results[0]);
         } else {
             throw new Exception("Login e/ou senha inválidos.");
+        }
+
+    }
+
+    /**
+     * Setar Dados
+     */
+    private function setarDados($dados) {
+        $this->setIdusuario($dados['idusuario']);
+        $this->setDeslogin($dados['deslogin']);
+        $this->setDessenha($dados['dessenha']);
+        $this->setDtcadastro(new DateTime($dados['dtcadastro']));
+    }
+
+    /**
+     * Insert
+     */
+    public function inserir() {
+
+        $sql = new Sql("localhost", "dbphp7", "root", "");
+        
+        $results = $sql->runQuerySelect("CALL sp_usuarios_insert(:LOGIN, :PASSWORD)", array(
+            ":LOGIN"    => $this->getDeslogin(),
+            ":PASSWORD" => $this->getDessenha()
+        ));
+
+        if (count($results)) {
+            $this->setarDados($results[0]);
         }
 
     }
