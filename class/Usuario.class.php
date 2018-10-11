@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * ========================
+ * ===== CLASSE TESTE =====
+ * ========================
+ */
 class Usuario {
 
     /**
@@ -113,7 +118,61 @@ class Usuario {
         }
 
     }
+
+    /**
+     * Retorna Lista de usuário do banco
+     */
+    public static function retornarLista() {
+
+        $sql = new Sql("localhost", "dbphp7", "root", "");
+
+        return $sql->runQuerySelect("SELECT * FROM tb_usuarios ORDER BY deslogin");
+
+    }
+
+    /**
+     * Busca usuário estaticamente pelo $login
+     */
+    public static function buscarUsuario($login) {
+
+        $sql = new Sql("localhost", "dbphp7", "root", "");
+
+        return $sql->runQuerySelect("SELECT * FROM tb_usuarios WHERE deslogin LIKE :SEARCH ORDER BY deslogin", array(
+            ':SEARCH' => "%" . $login . "%"
+        ));
+
+    }
+
+    /**
+     * Buscar usuário autenticado (login e senha)
+     */
+    public function buscarAutenticado($login, $senha) {
+
+        $sql = new Sql("localhost", "dbphp7", "root", "");
+
+        $results = $sql->runQuerySelect("SELECT * FROM tb_usuarios WHERE deslogin = :LOGIN AND dessenha = :PASSWORD", array(
+            ":LOGIN" => $login,
+            ":PASSWORD" => $senha
+        ));
+
+        if (count($results)) {
+
+            $row = $results[0];
+
+            $this->setIdusuario($row['idusuario']);
+            $this->setDeslogin($row['deslogin']);
+            $this->setDessenha($row['dessenha']);
+            $this->setDtcadastro(new DateTime($row['dtcadastro']));
+
+        } else {
+            throw new Exception("Login e/ou senha inválidos.");
+        }
+
+    }
     
+    /**
+     * toString
+     */
     public function __toString() {
         return json_encode(array(
             "idusuario"     => $this->getIdusuario(),
