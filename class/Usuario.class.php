@@ -23,7 +23,7 @@ class Usuario {
         $this->setDeslogin($login);
         $this->setDessenha($pass);
     }
-    
+
     /**
      * Get the value of idusuario
      */ 
@@ -193,6 +193,21 @@ class Usuario {
 
     }
     
+    public function atualizar($login, $password) {
+
+        $this->setDeslogin($login);
+        $this->setDessenha($password);
+
+        $sql = new Sql("localhost", "dbphp7", "root", "");
+
+        $sql->runQuery("UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :PASSWORD, where idusuario = :ID", array(
+            ":LOGIN"    => $this->getDeslogin(),
+            ":PASSWORD" => $this->getDessenha(),
+            ":ID"       => $this->getIdusuario()
+        ));
+
+    }
+
     /**
      * toString
      */

@@ -28,11 +28,15 @@ require_once("config.php");
 //$usuario->buscarAutenticado("jose", "123456");
 //echo $usuario;
 
-//Teste: Insert novo usuario
-$aluno = new Usuario("aluno", "alun0");
+//Teste: inserir novo usuario
+//$aluno = new Usuario("aluno", "alun0");
+//$aluno->inserir();
+//echo $aluno;
 
-$aluno->inserir();
-
-echo $aluno;
+//Teste: atulizando usuário
+$usuario = new Usuario();
+$usuario->carregarPorId(8);
+$usuario->atualizar("professor", "!@#$");
+echo $usuario;
 
 ?>
