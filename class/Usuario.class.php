@@ -208,6 +208,21 @@ class Usuario {
 
     }
 
+    public function deletar() {
+
+        $sql = new Sql("localhost", "dbphp7", "root", "");
+
+        $sql->runQuery("DELETE FROM tb_usuarios where idusuario = :ID", array(
+            ":ID" => $this->getIdusuario()
+        ));
+
+        $this->setIdusuario(0);
+        $this->setDeslogin("");
+        $this->setDessenha("");
+        $this->setDtcadastro(new DateTime());
+
+    }
+
     /**
      * toString
      */

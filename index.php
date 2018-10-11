@@ -34,9 +34,16 @@ require_once("config.php");
 //echo $aluno;
 
 //Teste: atulizando usuário
+//$usuario = new Usuario();
+//$usuario->carregarPorId(8);
+//$usuario->atualizar("professor", "!@#$");
+//echo $usuario;
+
+//Teste: deletando usuário
 $usuario = new Usuario();
-$usuario->carregarPorId(8);
-$usuario->atualizar("professor", "!@#$");
+$usuario->carregarPorId(32);
+echo $usuario;
+$usuario->deletar();
 echo $usuario;
 
 ?>
